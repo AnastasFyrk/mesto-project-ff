@@ -1,21 +1,20 @@
-// из него должна экспортироваться функция createCard, которую вы создали раньше (у вас она может называться по-другому).
-//Функции, обрабатывающие события лайка и удаления карточки, также должны находиться в этом файле и экспортироваться из него.
+import { handleImageClick } from '../index.js';
 
 const template = document.querySelector('#card-template');
 
-function createCard(name, link, deleteCard, likeCard, handleImageClick) {
+function createCard(cardData) {
   const cardElement = template.content.cloneNode(true);
   const deleteButton = cardElement.querySelector('.card__delete-button');
   const likeButton = cardElement.querySelector('.card__like-button');
   const cardImage = cardElement.querySelector('.card__image');
 
-  cardElement.querySelector('.card__title').textContent = name;
-  cardElement.querySelector('.card__image').alt = name;
-  cardElement.querySelector('.card__image').src = link;
+  cardElement.querySelector('.card__title').textContent = cardData.name;
+  cardElement.querySelector('.card__image').alt = cardData.name;
+  cardElement.querySelector('.card__image').src = cardData.link;
 
-  deleteButton.addEventListener('click', deleteCard);
-  likeButton.addEventListener('click', likeCard);
-  cardImage.addEventListener('click', handleImageClick);
+  deleteButton.addEventListener('click', (cardData) => deleteCard(cardData));
+  likeButton.addEventListener('click', (cardData) => likeCard(cardData));
+  cardImage.addEventListener('click', (cardData) => handleImageClick(cardData));
 
   return cardElement;
 }
@@ -29,4 +28,4 @@ function likeCard(event) {
   event.target.classList.toggle('card__like-button_is-active');
 }
 
-export { createCard, deleteCard, likeCard };
+export { createCard };
