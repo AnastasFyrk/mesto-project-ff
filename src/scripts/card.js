@@ -1,8 +1,6 @@
-import { handleImageClick } from '../index.js';
-
 const template = document.querySelector('#card-template');
 
-function createCard(cardData) {
+function createCard(cardData, handleImageClick) {
   const cardElement = template.content.cloneNode(true);
   const deleteButton = cardElement.querySelector('.card__delete-button');
   const likeButton = cardElement.querySelector('.card__like-button');
@@ -14,7 +12,7 @@ function createCard(cardData) {
 
   deleteButton.addEventListener('click', (cardData) => deleteCard(cardData));
   likeButton.addEventListener('click', (cardData) => likeCard(cardData));
-  cardImage.addEventListener('click', (cardData) => handleImageClick(cardData));
+  cardImage.addEventListener('click', handleImageClick);
 
   return cardElement;
 }

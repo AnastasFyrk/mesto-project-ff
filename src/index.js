@@ -26,7 +26,7 @@ const image = document.querySelector('.popup__image'); //картинка в п�
 const captionImage = document.querySelector('.popup__caption'); //подпись картинки
 
 initialCards.forEach(function (cardData) {
-  cardList.append(createCard(cardData));
+  cardList.append(createCard(cardData, handleImageClick));
 });
 
 //добавление информации в профиль
@@ -44,13 +44,13 @@ function handleFormSubmitNewCard(evt) {
     name: placeInput.value,
     link: linkInput.value,
   };
-  cardList.prepend(createCard(newItem));
+  cardList.prepend(createCard(newItem, handleImageClick));
   closeModal(popupNewCard);
   evt.target.reset();
 }
 
 //функция открытия попапа картинки
-export function handleImageClick(evt) {
+function handleImageClick(evt) {
   if (evt.target.classList.contains('card__image')) {
     openModal(popupImage);
     image.src = evt.target.src;
