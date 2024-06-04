@@ -20,7 +20,7 @@ import { configValidation } from "./scripts/configValidation.js";
 const popups = document.querySelectorAll(".popup"); //все попапы
 
 const popupTypeEdit = document.querySelector(".popup_type_edit"); //попап редактирования профиля
-const ProfileEditButton = document.querySelector(".profile__edit-button"); //кнопка редактирования
+const profileEditButton = document.querySelector(".profile__edit-button"); //кнопка редактирования
 const formEditProfile = document.forms["edit-profile"]; //форма редактирования профиля
 const nameInput = formEditProfile.querySelector(".popup__input_type_name"); //имя ввод
 const jobInput = formEditProfile.querySelector(".popup__input_type_description"); //профессия ввод
@@ -69,7 +69,15 @@ Promise.all([getCards(), getUserData()])
   });
 
 function renderCard(cardData) {
-  cardList.prepend(createCard(cardData, handleImageClick, handleButtonDeleteClick, likeButtonClick, userId));
+  cardList.prepend(
+    createCard(
+      cardData,
+      handleImageClick,
+      handleButtonDeleteClick,
+      likeButtonClick,
+      userId
+    )
+  );
 }
 
 //добавление информации в профиль
@@ -108,6 +116,7 @@ function handleFormSubmitNewCard(evt) {
 
 //функция открытия попапа картинки
 function handleImageClick(evt) {
+  //не совсем поняла как реализовать это замечание
   if (evt.target.classList.contains("card__image")) {
     openModal(popupImage);
     image.src = evt.target.src;
@@ -172,6 +181,7 @@ function handleFormSubmitAvatar(evt) {
     .then(() => {
       profileAvatar.style = `background-image: url(${avatarInput.value})`;
       closeModal(popupTypeAvatar);
+      evt.target.reset();
     })
     .catch((err) => {
       console.log(err);
@@ -179,11 +189,10 @@ function handleFormSubmitAvatar(evt) {
     .finally(() => {
       evt.submitter.textContent = "Сохранить";
     });
-  evt.target.reset();
 }
 
 //слушатель открытия попапа редактирования профиля
-ProfileEditButton.addEventListener("click", () => {
+profileEditButton.addEventListener("click", () => {
   nameInput.value = profileName.textContent;
   jobInput.value = profileDescription.textContent;
   clearValidation(formEditProfile, configValidation);
