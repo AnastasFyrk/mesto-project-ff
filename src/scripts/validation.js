@@ -79,12 +79,10 @@ const enabledValidation = (config) => {
 
 //функция очистки валидации
 const clearValidation = (formElement, config) => {
-  const inputList = Array.from(
-    formElement.querySelectorAll(config.inputSelector)
-  );
+  const inputList = Array.from(formElement.querySelectorAll(config.inputSelector));
   const buttonElement = formElement.querySelector(config.submitButtonSelector);
 
-  inputList.forEach((inputElement, config) => {
+  inputList.forEach((inputElement) => {
     hideInputError(formElement, inputElement, config);
     toggleButtonState(inputList, buttonElement, config);
   });

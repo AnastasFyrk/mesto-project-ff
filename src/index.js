@@ -22,6 +22,7 @@ const popups = document.querySelectorAll(".popup"); //все попапы
 const popupTypeEdit = document.querySelector(".popup_type_edit"); //попап редактирования профиля
 const profileEditButton = document.querySelector(".profile__edit-button"); //кнопка редактирования
 const formEditProfile = document.forms["edit-profile"]; //форма редактирования профиля
+const submitButton = formEditProfile.querySelector(".popup__button"); //кнопка сохранения
 const nameInput = formEditProfile.querySelector(".popup__input_type_name"); //имя ввод
 const jobInput = formEditProfile.querySelector(".popup__input_type_description"); //профессия ввод
 const profileName = document.querySelector(".profile__title"); //имя в профиле
@@ -193,10 +194,15 @@ function handleFormSubmitAvatar(evt) {
 
 //слушатель открытия попапа редактирования профиля
 profileEditButton.addEventListener("click", () => {
-  nameInput.value = profileName.textContent;
-  jobInput.value = profileDescription.textContent;
   clearValidation(formEditProfile, configValidation);
   openModal(popupTypeEdit);
+  nameInput.value = profileName.textContent;
+  jobInput.value = profileDescription.textContent;
+  
+  //иначе не работает кнопка после закрытия с ошибкой
+  submitButton.disabled = false;
+  submitButton.classList.remove("popup__button_disabled");
+
 });
 
 //слушатель обработки формы редактирования профиля
